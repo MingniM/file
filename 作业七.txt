@@ -1,0 +1,138 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul 18 20:11:56 2018
+@author: timi
+"""
+
+url='http://api.openweathermap.org/data/2.5/forecast?q=zhengzhou,cn&mode=json&lang=zh_cn&&APPID=6a67ed641c0fda8b69715c43518b6996&units=metric'
+import urllib.request as r
+data=r.urlopen(url).read().decode('utf-8','ingore')
+import json
+data=json.loads(data)
+def weather (a,b):
+    print ('day'+str(a))
+    print('天气情况:'+str(data['list'][b]['weather'][0]['main']))
+    print('温度:'+str(data['list'][b]['main']['temp']))
+    print('气压:'+str(data['list'][b]['main']['pressure']))
+    print('')
+    a=str(data['list'][b]['weather'][0]['main'])
+    if a=='Clear':
+        print('天气很好，可以去远足！')
+    elif a=='Rain':
+        print('今日有雨，记得带伞！')
+    elif a=='Clouds':
+        print('今日多云，气温较低，注意保暖！')
+weather(1,2)
+weather(2,10)
+weather(3,18)
+weather(4,26)
+weather(5,34)
+
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul 18 14:09:25 2018
+
+@author: liumingmin
+"""
+
+url='https://s.taobao.com/search?initiative_id=tbindexz_20170306&ie=utf8&spm=a21bo.2017.201856-taobao-item.2&sourceId=tb.index&search_type=item&ssid=s5-e&commend=all&imgfile=&q=%E8%A3%99%E5%AD%90&suggest=history_1&_input_charset=utf-8&wq=&suggest_query=&source=suggest&loc=%E8%A5%BF%E5%AE%89&ajax=true'
+import urllib.request as r#导入联网工具包，名为为r
+data=r.urlopen(url).read().decode('utf-8','ignore')
+import json#将字符串转换为字典
+data=json.loads(data)
+def look():
+    for a in range(0,4):
+        print('第'+str(a+1)+'件商品的信息为:')
+        print('a.商品标题为：',data['mods']['itemlist']['data']['auctions'][a]['title'])
+        print('b.商品价格为：',data['mods']['itemlist']['data']['auctions'][a]['view_price'])
+        print('c.商品销量为：',data['mods']['itemlist']['data']['auctions'][a]['item_loc'])
+        print('c.商品运费为：',data['mods']['itemlist']['data']['auctions'][a]['view_fee'])
+        print('d.商品发货地：',data['mods']['itemlist']['data']['auctions'][a]['view_sales'])
+        if(a+1)%4==0:
+            print('——'*30)
+look()
+def look():
+    for a in range(0,36):
+        print('第'+str(a+1)+'件商品的信息为:')
+        print('a.商品标题为：',data['mods']['itemlist']['data']['auctions'][a]['title'])
+        print('b.商品价格为：',data['mods']['itemlist']['data']['auctions'][a]['view_price'])
+        print('c.商品销量为：',data['mods']['itemlist']['data']['auctions'][a]['item_loc'])
+        print('c.商品运费为：',data['mods']['itemlist']['data']['auctions'][a]['view_fee'])
+        print('d.商品发货地：',data['mods']['itemlist']['data']['auctions'][a]['view_sales'])
+        if(a+1)%4==0:
+            print('——'*30)
+
+price_list=[]
+def price():
+    for a in range(0,36):
+        b=float(data['mods']['itemlist']['data']['auctions'][a]['view_price'])
+        price_list.append(b)
+    return price_list
+price()
+c=sorted(price_list)
+print('商品的价格从高到低排序为')
+d=list(reversed(c))
+print(c)
+
+xiaoliang=[]
+def xsl():
+    for i in range(0,36):
+        j=str(data['mods']['itemlist']['data']['auctions'][i]['view_sales'])
+        l=int(j[0:3])
+        xiaoliang.append(l)
+    return xiaoliang
+xsl()
+m=sorted(xiaoliang)
+print('商品的销售量从高到低排序为')
+n=list(reversed(m))
+print(m)
+
+def baoyoufou():
+    for a in range(0,36):
+        q=a
+        if float(data['mods']['itemlist']['data']['auctions'][a]['view_fee'])==0.0:
+            print('第{}件商品包邮'.format(q+1))
+baoyoufou()
+
+#多次for循环操作，及while break continue 等
+url='https://s.taobao.com/search?q=%E8%83%8C%E5%8C%85&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20180718&ie=utf8&ajax=true'
+import urllib.request as r#导入联网工具包，名为为r
+data=r.urlopen(url).read().decode('utf-8','ignore')
+import json#将字符串转换为字典
+data=json.loads(data)
+xiaoliang=[]
+def xsl():
+    for i in range(0,36):
+        j=str(data['mods']['itemlist']['data']['auctions'][i]['view_sales'])
+        l=int(j[0:3])
+        xiaoliang.append(l)
+    return xiaoliang
+xsl()
+m=sorted(xiaoliang)
+print('商品的销售量从高到低排序为')
+n=list(reversed(m))
+print(m)
+def look():
+    for a in range(0,36):
+        print('第'+str(a+1)+'件商品的信息为:')
+        print('a.商品标题：',data['mods']['itemlist']['data']['auctions'][a]['title'])
+        print('b.商品价格：',data['mods']['itemlist']['data']['auctions'][a]['view_price'])
+        print('c.商品发货地：',data['mods']['itemlist']['data']['auctions'][a]['item_loc'])
+        print('c.商品运费：',data['mods']['itemlist']['data']['auctions'][a]['view_fee'])
+        print('d.商品销量：',data['mods']['itemlist']['data']['auctions'][a]['view_sales'])
+        if(a+1)%4==0:
+            print('——'*30)
+        p=float(str(data['mods']['itemlist']['data']['auctions'][a]['view_price']))
+        if p<=200.00:
+            print('消费建议：量入为出，商品价格符合实际需要，可以考虑')
+        elif p>200.00:
+            print('消费建议：消费过度，需考虑商品信息是否符合实际需要')
+        if a==15:
+            continue
+        while a==35:
+                break
+            
+look()
+
+
+
